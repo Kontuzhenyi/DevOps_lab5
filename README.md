@@ -27,7 +27,7 @@ docker ps
 mkdir -p ~/devops6docker/nginx/nginx-conf
 cd ~/devops6docker
 ```
-Создаем `~/devops6docker/nginx/index.html`
+Создаем `~/devops6docker/nginx/index.html`. Nginx отдаст его клиенту
 ```
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@ cd ~/devops6docker
 </html>
 ```
 
-Создаем `~/devops6docker/nginx/nginx-conf/nginx.conf`
+Создаем `~/devops6docker/nginx/nginx-conf/nginx.conf`. Конфигурация для nginx
 ```
 events {}
 
@@ -61,7 +61,7 @@ http {
 }
 ```
 
-Создаем `~/devops6docker/nginx/Dockerfile`
+Создаем `~/devops6docker/nginx/Dockerfile`. Это инструкция как собрать образ
 ```
 FROM nginx:latest
 
@@ -71,7 +71,7 @@ COPY nginx-conf/nginx.conf /etc/nginx/nginx.conf
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-Собираем образ
+Собираем образ. Создастся готовая штука, которую можно будет быстро запустить. Docker скачает базовый образ nginx, добавит файлы и создаст готовый образ, из которого потом запускается контейнер.
 ```
 docker build -t nginx-server ./nginx
 ```
@@ -82,7 +82,8 @@ docker images
 ```
 ![alt text](image-1.png)
 
-Запускаем контейнер
+
+Запускаем контейнер. Берем образ nginx-server и запускаем его как контейнер. Контейнер - это изолированная запущенная программа с уже готовым окружением.
 ```
 docker run -d --name nginx-cont -p 54321:80 --restart unless-stopped nginx-server
 ```
